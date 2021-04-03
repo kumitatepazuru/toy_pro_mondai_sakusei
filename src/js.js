@@ -298,5 +298,12 @@ $(function () {
             $("#code").text(JSON.stringify(j,null,"  "));
             success_dialog.open();
         }
-    })
-})
+    });
+
+    $("#save-json").on("click",function(){
+        $('<a>', {
+            href: 'data:text/plain,' + encodeURIComponent($("#code").text()),
+            download: $("#title").val()+".json"
+        })[0].click();
+    });
+});

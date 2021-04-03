@@ -23,9 +23,10 @@
     <div class="mdc-dialog__container">
         <div class="mdc-dialog__surface">
             <div class="mdc-dialog__title">
-                トイプロ問題作成ツール β1.1へようこそ！
+                トイプロ問題作成ツール β2.0へようこそ！
             </div>
             <div class="mdc-dialog__content">
+                <p>β2.0リリース!<br>コードをお使いの端末・PCに保存する機能を追加!<br>これでdiscordに送るのも楽になったね。</p>
                 <p>β1.1リリース!<br>コードを圧縮してお使いの端末・PCを軽量化!(ごく微量)</p>
                 <b>これは非公式のツールです！</b><br>
                 なにか問題等があった場合は公式discordの #general に @kumitatepazuru のメンション付きでスクリーンショットと一緒に送ってください。
@@ -153,27 +154,27 @@
                 ライセンス(MIT)
             </div>
             <div class="mdc-dialog__content"><pre>
-MIT License
-
-Copyright (c) 2021 kumitatepazuru
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+MIT License<br>
+<br>
+Copyright (c) 2021 kumitatepazuru<br>
+<br>
+Permission is hereby granted, free of charge, to any person obtaining a copy<br>
+of this software and associated documentation files (the "Software"), to deal<br>
+in the Software without restriction, including without limitation the rights<br>
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>
+copies of the Software, and to permit persons to whom the Software is<br>
+furnished to do so, subject to the following conditions:<br>
+<br>
+The above copyright notice and this permission notice shall be included in all<br>
+copies or substantial portions of the Software.<br>
+<br>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>
+SOFTWARE.<br>
             </pre>
             </div>
             <div class="mdc-dialog__actions">
@@ -218,6 +219,9 @@ SOFTWARE.
                 <p class="text-success">出力が完了しました。以下がコードです。</p>
                 <!-- TODO: 色付け -->
                 <pre id="code"></pre>
+                <button class="mdc-button mdc-button--raised w-100" id="save-json">
+                    <span class="mdc-button__label">ファイルに保存</span>
+                </button>
             </div>
             <div class="mdc-dialog__actions">
                 <button class="mdc-button mdc-button--raised mdc-dialog__button" data-mdc-dialog-action="close"
