@@ -91,5 +91,4 @@ def start(e):
         window.jQuery("#genbun").text(traceback.format_exc())
         window.generate_error_dialog.open()
     finally:
-        # window.loader_dialog.close()
-        pass
+        window.loader_dialog.close()
