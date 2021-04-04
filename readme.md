@@ -12,9 +12,6 @@ by kumitatepazuru(Riku Ueda)
 ## LICENSE
 [こちら](https://github.com/kumitatepazuru/toy_pro_mondai_sakusei) から。
 
-## ソースコードについて
-rootにあるファイル群は圧縮済みのファイルですので、`src` ディレクトリ内のファイルを参照してください。
-
 ## 使い方
 本家本元の使い方がわかりやすいのでそちらを参照してください（投げやり）。
 
