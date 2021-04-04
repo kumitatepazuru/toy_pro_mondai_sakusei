@@ -6,15 +6,21 @@ $(function () {
     const menu = new mdc.menu.MDCMenu(document.querySelector('.mdc-menu'));
     const error_dialog = new mdc.dialog.MDCDialog(document.querySelector("#error-dialog"));
     const success_dialog = new mdc.dialog.MDCDialog(document.querySelector("#success"));
+    window.generate_dialog = new window.mdc.dialog.MDCDialog(document.querySelector("#generate-dialog"));
+    window.generate_error_dialog = new window.mdc.dialog.MDCDialog(document.querySelector("#error_generate"));
+    window.loader_dialog = new window.mdc.dialog.MDCDialog(document.querySelector("#loader"));
+    window.linearProgress = new window.mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
+    loader_dialog.scrimClickAction = "";
+    loader_dialog.escapeKeyAction = "";
     menu.listen("MDCMenu:selected", function (e) {
         $("#hname").text(($("#h" + e.detail.index + " > .mdc-list-item__text").text()));
     });
-    const hensuu = [
+    window.hensuu = [
         ["A", "int"],
         ["B", "int"]
     ];
 
-    let random_case = [
+    window.random_case = [
         [2, 3, 8,false],
         [3, 2, 9,false],
         [1, 1, 1,true]
@@ -24,7 +30,7 @@ $(function () {
         let random_case_row = $("#random-case-list-row");
         random_case_row.empty();
         $("#random_case-list").empty();
-        random_case = [];
+        window.random_case = [];
         hensuu.forEach(function (value) {
             random_case_row.append('<th class="mdc-data-table__header-cell">変数' + value[0] + '</th>');
         });
@@ -81,7 +87,6 @@ $(function () {
         $("#hid").text(hensuu.length);
         $("#hensuu-list").append('<tr class="mdc-data-table__row" id="hensuu-' + hensuu.length + '"><th class="mdc-data-table__cell name"></th><td class="mdc-data-table__cell hname"></td><td class="mdc-data-table__cell"><button class="mdc-button mdc-button--raised w-100 change-btn"><span class="mdc-button__label">変更</span></button></td><td class="mdc-data-table__cell"><button class="mdc-button mdc-button--outlined w-100 remove-btn"><span class="mdc-button__ripple"></span><span class="mdc-button__label">削除</span></button></td></tr>')
         document.querySelectorAll('#hensuu-list .mdc-button').forEach(function (value) {
-            console.log(value);
             new mdc.ripple.MDCRipple(value);
         })
         hensuu.push(["", ""]);
@@ -109,7 +114,7 @@ $(function () {
         let index = $(this).parent().parent().attr('id').split("-")[1];
         random_case.splice(index, 1);
         while ($("#random_case-" + index).length) {
-            $("#random_case-" + index).attr("id", "#random_case-" + (index - 1));
+            $("#random_case-" + index).attr("id", "random_case-" + (index - 1));
             index++;
         }
         $(this).parent().parent().remove();
@@ -306,4 +311,6 @@ $(function () {
             download: $("#title").val()+".json"
         })[0].click();
     });
+
+    brython(1);
 });

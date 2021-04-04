@@ -16,6 +16,9 @@
     <script crossorigin="anonymous"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython_stdlib.js"></script>
+    <script type="text/python" src="./generate-case.py"></script>
     <meta content="width=device-width" name="viewport">
 </head>
 <body>
@@ -44,6 +47,40 @@
                         type="button">
                     <div class="mdc-button__ripple"></div>
                     <span class="mdc-button__label">OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<div class="mdc-dialog" id="generate-dialog">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface">
+            <div class="mdc-dialog__title">
+                ケースの自動生成
+            </div>
+            <div class="mdc-dialog__content">
+                <label class="mdc-text-field mdc-text-field--outlined w-100 mt-3">
+                      <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__notch">
+                          <span class="mdc-floating-label">生成個数</span>
+                        </span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                      </span>
+                    <input class="mdc-text-field__input" id="num-cases" required type="number" value="5">
+                </label>
+                <div class="mdc-text-field-helper-line">
+                    <div class="mdc-text-field-helper-text">ケースの自動生成個数です。</div>
+                </div>
+                <p class="text-danger">注意: この仕組みはまだ実験的です!</p>
+                <p>無理やりweb(javascript言語)でpythonを動かしているのでプログラムによっては動作しないorものすごく重くなる(固まる)可能性があります。</p>
+            </div>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-button mdc-button--raised mdc-dialog__button" data-mdc-dialog-action="close"
+                        type="button" id="start-generate">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">開始</span>
                 </button>
             </div>
         </div>
@@ -234,6 +271,52 @@ SOFTWARE.<br>
     </div>
     <div class="mdc-dialog__scrim"></div>
 </div>
+<div class="mdc-dialog" id="error_generate">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface">
+            <div class="mdc-dialog__title">
+                実行時エラー
+            </div>
+            <div class="mdc-dialog__content">
+                <p class="text-danger">生成中にエラーが発生しました。</p>
+                <p id="comment-error"></p>
+                <p>原文</p>
+                <pre id="genbun"></pre>
+            </div>
+            <div class="mdc-dialog__actions">
+                <button class="mdc-button mdc-button--raised mdc-dialog__button" data-mdc-dialog-action="close"
+                        type="button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">OK</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
+<div class="mdc-dialog" id="loader">
+    <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface" tabindex="0">
+            <div class="mdc-dialog__content">
+                <p>処理中です。しばらくお待ちください。</p>
+                <span id="loader_log"></span>
+                <div role="progressbar" class="mdc-linear-progress">
+                    <div class="mdc-linear-progress__buffer">
+                        <div class="mdc-linear-progress__buffer-bar"></div>
+                        <div class="mdc-linear-progress__buffer-dots"></div>
+                    </div>
+                    <div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+                        <span class="mdc-linear-progress__bar-inner"></span>
+                    </div>
+                    <div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+                        <span class="mdc-linear-progress__bar-inner"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mdc-dialog__scrim"></div>
+</div>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-md-4 col-12">
@@ -339,7 +422,8 @@ AのB乗を求めよ。</textarea>
                 <div class="mdc-text-field-helper-text">解説文です。</div>
             </div>
         </div>
-
+    </div>
+    <div class="row">
         <div class="col-md-6 col-12">
             <p>8.想定解(必須)</p>
             <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--no-label w-100">
@@ -372,6 +456,12 @@ B=randint(1,1000)</textarea>
             </div>
         </div>
 
+        <button class="mdc-button mdc-button--outlined" id="generate-case">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">想定解と生成コードからケースを自動作成</span>
+        </button>
+    </div>
+    <div class="row">
         <div class="col-lg-6 col-12 mt-3">
             <p>10.変数の定義と型の指定</p>
             <div class="mdc-data-table w-100">
