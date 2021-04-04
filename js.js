@@ -21,9 +21,9 @@ $(function () {
     ];
 
     window.random_case = [
-        [2, 3, 8,false],
-        [3, 2, 9,false],
-        [1, 1, 1,true]
+        [2, 3, "8",false],
+        [3, 2, "9",false],
+        [1, 1, "1",true]
     ];
 
     function update_case_row() {
@@ -230,7 +230,7 @@ $(function () {
         const tags = $("#tags").val();
         const userid = $("#userid").val();
         const restrict = $("#restrict").val();
-        const problem = $("#problem").val();
+        let problem = $("#problem").val();
         const answer = $("#answer").val();
         const com = $("#com").val();
         const test_case_generator = $("#test_case_generator").val();
@@ -263,6 +263,11 @@ $(function () {
             $("#error-msg").html(error.join("<br>"));
             error_dialog.open();
         } else {
+            problem += "\n\n### 制約\n\n```python\n"+restrict+"\n```\n\n### 必要な変数\n\n"+hensuu.map(function (n){return "- "+n[0]}).join("\n")+"\n\n### 入力例\n\n```python\n"
+            hensuu.forEach(function (value,index) {
+                problem += value[0]+" = "+random_case[0][index]+"\n"
+            })
+            problem += "```\n\n### 出力例\n\n```python\n"+random_case[0].slice(-2)[0]+"\n```"
             const j = {"title":title,
                 "rating":Number(point),
                 "tags":tags,
