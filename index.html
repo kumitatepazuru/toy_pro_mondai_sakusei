@@ -18,6 +18,11 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython_stdlib.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js" integrity="sha512-GoORoNnxst42zE3rYPj4bNBm0Q6ZRXKNH2D9nEmNvVF/z24ywVnijAWVi/09iBiVDQVf3UlZHpzhAJIdd9BXqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ext-language_tools.min.js" integrity="sha512-8qx1DL/2Wsrrij2TWX5UzvEaYOFVndR7BogdpOyF4ocMfnfkw28qt8ULkXD9Tef0bLvh3TpnSAljDC7uyniEuQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/mode-python.min.js" integrity="sha512-2Ke4vMGrMfYRM55pT1aA5bw7Pl82Sc7K5Hg8XZYZu+EQrb0AO1mNYTagwZm+MFVAImYS9Mlnm73zcgc01wPXxA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/theme-crimson_editor.min.js" integrity="sha512-6p5I5L1/f42QmNeOipVFB9fIeNA7vVA8gY2ko1EiFcGxTJW3YyuyY6ZZ4EPR5wpSc9UhUXXYHfEopV2P4healA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/snippets/python.min.js" integrity="sha512-QlDxAY08FSUbmRi46v+pZBc/XhwbU6hS20UdcCeGdM9RIHXnGvPwqM08WvZr3vFXWiGrzTAqCKayx0nkWBk7hA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script type="text/python" src="generate-case.py"></script>
@@ -31,15 +36,10 @@
                 トイプロ問題作成ツール β7.0へようこそ！
             </div>
             <div class="mdc-dialog__content">
+                <p>β8.0リリース! コード入力時にシンタックスハイライトされるようになりました。</p>
                 <p>β7.0リリース! markdown入力ができるようになりました。</p>
                 <p>β6.0リリース! 変数と入出力例を問題文に自動反映するようにしました。</p>
                 <p>β5.1リリース! 自動生成で、dialogが閉じないバグを修正</p>
-                <p>β5.0リリース!<br>
-                    新機能<br>
-                    想定解と生成コードからケースを自動生成する仕組みを実装(α) <= ちゃんとpythonで実行可能!<br>
-                    変更点<br>
-                    ケースを内部で正常に削除できないバグを修正<br>
-                    圧縮システムに不備があったため、廃止。</p>
                 <b>これは非公式のツールです！</b><br>
                 なにか問題等があった場合は公式discordの #general に @kumitatepazuru のメンション付きでスクリーンショットと一緒に送ってください。
                 <br>または、 discordのDMの kumitatepazuru#2432 にスクリーンショットと一緒に送ってください。
@@ -442,37 +442,38 @@ SOFTWARE.<br>
     <div class="row">
         <div class="col-md-6 col-12">
             <p>8.想定解(必須)</p>
-            <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--no-label w-100">
-                <span class="mdc-text-field__ripple"></span>
-                <span class="mdc-text-field__resizer">
-                    <!-- TODO: いつかハイライトする！ -->
-    <textarea class="mdc-text-field__input" cols="40" id="answer" required rows="8">A=B=1
-print(A**B)</textarea>
-  </span>
-                <span class="mdc-line-ripple"></span>
-            </label>
-            <div class="mdc-text-field-helper-line">
-                <div class="mdc-text-field-helper-text">想定解です。</div>
-            </div>
+            <div id="answer" style="height: 300px;"></div>
+<!--            <label class="mdc-text-field mdc-text-field&#45;&#45;filled mdc-text-field&#45;&#45;textarea mdc-text-field&#45;&#45;no-label w-100">-->
+<!--                <span class="mdc-text-field__ripple"></span>-->
+<!--                <span class="mdc-text-field__resizer">-->
+<!--    <textarea class="mdc-text-field__input" cols="40" id="answer" required rows="8">A=B=1-->
+<!--print(A**B)</textarea>-->
+<!--  </span>-->
+<!--                <span class="mdc-line-ripple"></span>-->
+<!--            </label>-->
+<!--            <div class="mdc-text-field-helper-line">-->
+<!--                <div class="mdc-text-field-helper-text">想定解です。</div>-->
+<!--            </div>-->
         </div>
 
         <div class="col-md-6 col-12">
             <p>9.テストケース生成コード(必須)</p>
-            <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--no-label w-100">
-                <span class="mdc-text-field__ripple"></span>
-                <span class="mdc-text-field__resizer">
-    <textarea class="mdc-text-field__input" cols="40" id="test_case_generator" required rows="8">from random import randint
-A=randint(1,1000)
-B=randint(1,1000)</textarea>
-  </span>
-                <span class="mdc-line-ripple"></span>
-            </label>
-            <div class="mdc-text-field-helper-line">
-                <div class="mdc-text-field-helper-text">テストケースの生成コードを入力してください。ランダムケース生成機能はいずれつけます。</div>
-            </div>
+            <div id="test_case_generator" style="height: 300px;"></div>
+            <!--            <label class="mdc-text-field mdc-text-field&#45;&#45;filled mdc-text-field&#45;&#45;textarea mdc-text-field&#45;&#45;no-label w-100">-->
+<!--                <span class="mdc-text-field__ripple"></span>-->
+<!--                <span class="mdc-text-field__resizer">-->
+<!--    <textarea class="mdc-text-field__input" cols="40" id="test_case_generator" required rows="8">from random import randint-->
+<!--A=randint(1,1000)-->
+<!--B=randint(1,1000)</textarea>-->
+<!--  </span>-->
+<!--                <span class="mdc-line-ripple"></span>-->
+<!--            </label>-->
+<!--            <div class="mdc-text-field-helper-line">-->
+<!--                <div class="mdc-text-field-helper-text">テストケースの生成コードを入力してください。ランダムケース生成機能はいずれつけます。</div>-->
+<!--            </div>-->
         </div>
 
-        <button class="mdc-button mdc-button--outlined" id="generate-case">
+        <button class="mdc-button mdc-button--outlined mt-3" id="generate-case">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">想定解と生成コードからケースを自動作成</span>
         </button>

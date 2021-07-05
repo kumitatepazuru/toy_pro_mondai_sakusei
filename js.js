@@ -14,6 +14,28 @@ $(function () {
     window.linearProgress = new window.mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
     const com_mde = new SimpleMDE({element: $("#com")[0], autosave: {enabled: true}, spellChecker: false});
     const problem_mde = new SimpleMDE({element: $("#problem")[0], autosave: {enabled: true}, spellChecker: false});
+    const answer_editor = ace.edit("answer");
+    answer_editor.$blockScrolling = Infinity;
+    answer_editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+    answer_editor.setFontSize(20);
+    answer_editor.setTheme("ace/theme/crimson_editor");
+    answer_editor.getSession().setMode("ace/mode/python");
+    answer_editor.setValue("A=B=1\nprint(A**B)");
+    const test_case_editor = ace.edit("test_case_generator");
+    test_case_editor.$blockScrolling = Infinity;
+    test_case_editor.setOptions({
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true
+    });
+    test_case_editor.setFontSize(20);
+    test_case_editor.setTheme("ace/theme/crimson_editor");
+    test_case_editor.getSession().setMode("ace/mode/python");
+    test_case_editor.setValue("from random import randint\nA=randint(1,1000)\nB=randint(1,1000)");
     problem_mde.value("A,Bが与えられる。\nAのB乗を求めよ。")
     com_mde.value("AのB乗は`A**B`です。\nそれをprintするだけ!")
     loader_dialog.scrimClickAction = "";
@@ -237,9 +259,9 @@ $(function () {
         const userid = $("#userid").val();
         const restrict = $("#restrict").val();
         let problem = problem_mde.value();
-        const answer = $("#answer").val();
+        const answer = answer_editor.getValue();
         const com = com_mde.value();
-        const test_case_generator = $("#test_case_generator").val();
+        const test_case_generator = test_case_editor.getValue();
         const error = [];
         if (title === "") {
             error.push("タイトル");
