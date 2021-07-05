@@ -18,7 +18,7 @@ def start(e):
         for i in range(int(document.getElementById("num-cases").value)):
             window.linearProgress.progress = i/int(document.getElementById("num-cases").value)
             try:
-                exec(document.getElementById("test_case_generator").value, {}, locals())
+                exec(window.test_case_editor.getValue(), {}, locals())
             except Exception:
                 window.jQuery("#comment-error").html(
                     "テストケース生成コードの実行中にエラーが発生しました。プログラムを確認してください。確認しても治らない場合はお手数ですが、バグ報告を行ってください。")
@@ -47,7 +47,7 @@ def start(e):
                     global_ = {}
                     s = "A" + ''.join(random.choices(string.ascii_letters + string.digits, k=64))
                     try:
-                        for j in document.getElementById("answer").value.splitlines():
+                        for j in window.answer_editor.getValue().splitlines():
                             if j.find("print(") != -1:
                                 exec(j.replace("print(", s + "=("), global_)
                             else:

@@ -14,7 +14,7 @@ $(function () {
     window.linearProgress = new window.mdc.linearProgress.MDCLinearProgress(document.querySelector('.mdc-linear-progress'));
     const com_mde = new SimpleMDE({element: $("#com")[0], autosave: {enabled: true}, spellChecker: false});
     const problem_mde = new SimpleMDE({element: $("#problem")[0], autosave: {enabled: true}, spellChecker: false});
-    const answer_editor = ace.edit("answer");
+    window.answer_editor = ace.edit("answer");
     answer_editor.$blockScrolling = Infinity;
     answer_editor.setOptions({
         enableBasicAutocompletion: true,
@@ -25,7 +25,7 @@ $(function () {
     answer_editor.setTheme("ace/theme/crimson_editor");
     answer_editor.getSession().setMode("ace/mode/python");
     answer_editor.setValue("A=B=1\nprint(A**B)");
-    const test_case_editor = ace.edit("test_case_generator");
+    window.test_case_editor = ace.edit("test_case_generator");
     test_case_editor.$blockScrolling = Infinity;
     test_case_editor.setOptions({
         enableBasicAutocompletion: true,
