@@ -18,6 +18,8 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.9.1/brython_stdlib.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
     <script type="text/python" src="generate-case.py"></script>
     <meta content="width=device-width" name="viewport">
 </head>
@@ -325,6 +327,11 @@ SOFTWARE.<br>
 </div>
 <div class="container-fluid mt-3">
     <div class="row">
+<!--        <div class="col-12 mb-3">-->
+<!--            <button class="mdc-button mdc-button&#45;&#45;raised w-100" id="import-json">-->
+<!--                <span class="mdc-button__label">jsonをインポートする</span>-->
+<!--            </button>-->
+<!--        </div>-->
         <div class="col-md-4 col-12">
             <div class="row">
                 <div class="col">
@@ -402,31 +409,33 @@ SOFTWARE.<br>
             </div>
         </div>
         <div class="col-md-8 col-12">
-            <p>6.問題文（必須）</p>
-            <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--no-label w-100">
-                <span class="mdc-text-field__ripple"></span>
-                <span class="mdc-text-field__resizer">
-    <textarea class="mdc-text-field__input" cols="40" id="problem" required rows="7">A,Bが与えられる。
-AのB乗を求めよ。</textarea>
-  </span>
-                <span class="mdc-line-ripple"></span>
-            </label>
-            <div class="mdc-text-field-helper-line">
-                <div class="mdc-text-field-helper-text">問題文です。</div>
-            </div>
+            <label for="problem">6.問題文（必須）</label>
+<!--            <label class="mdc-text-field mdc-text-field&#45;&#45;filled mdc-text-field&#45;&#45;textarea mdc-text-field&#45;&#45;no-label w-100">-->
+<!--                <span class="mdc-text-field__ripple"></span>-->
+<!--                <span class="mdc-text-field__resizer">-->
+<!--    <textarea class="mdc-text-field__input" cols="40" id="problem" required rows="7">A,Bが与えられる。-->
+<!--AのB乗を求めよ。</textarea>-->
+<!--  </span>-->
+<!--                <span class="mdc-line-ripple"></span>-->
+<!--            </label>-->
+<!--            <div class="mdc-text-field-helper-line">-->
+<!--                <div class="mdc-text-field-helper-text">問題文です。</div>-->
+<!--            </div>-->
+            <textarea id="problem"></textarea>
 
-            <p>7.解説文(必須)</p>
-            <label class="mdc-text-field mdc-text-field--filled mdc-text-field--textarea mdc-text-field--no-label w-100">
-                <span class="mdc-text-field__ripple"></span>
-                <span class="mdc-text-field__resizer">
-    <textarea class="mdc-text-field__input" cols="40" id="com" required rows="7">AのB乗はA**Bです。
-それをprintするだけ!</textarea>
-  </span>
-                <span class="mdc-line-ripple"></span>
-            </label>
-            <div class="mdc-text-field-helper-line">
-                <div class="mdc-text-field-helper-text">解説文です。</div>
-            </div>
+            <label for="com">7.解説文(必須)</label>
+<!--            <label class="mdc-text-field mdc-text-field&#45;&#45;filled mdc-text-field&#45;&#45;textarea mdc-text-field&#45;&#45;no-label w-100">-->
+<!--                <span class="mdc-text-field__ripple"></span>-->
+<!--                <span class="mdc-text-field__resizer">-->
+<!--    <textarea class="mdc-text-field__input" cols="40" id="com" required rows="7">AのB乗はA**Bです。-->
+<!--それをprintするだけ!</textarea>-->
+<!--  </span>-->
+<!--                <span class="mdc-line-ripple"></span>-->
+<!--            </label>-->
+<!--            <div class="mdc-text-field-helper-line">-->
+<!--                <div class="mdc-text-field-helper-text">解説文です。</div>-->
+<!--            </div>-->
+            <textarea id="com"></textarea>
         </div>
     </div>
     <div class="row">

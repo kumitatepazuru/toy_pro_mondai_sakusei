@@ -14,5 +14,6 @@
     <orderEntry type="library" name="ace" level="application" />
     <orderEntry type="library" name="brython" level="application" />
     <orderEntry type="library" name="Python 3.8 interpreter library" level="application" />
+    <orderEntry type="library" name="simplemde" level="application" />
   </component>
 </module>
